@@ -1,8 +1,22 @@
 
-// Primitive Data Types: string, number, boolean, null, undefined, symbol, bigint
-// Non-Primitive Data Types: object, array, function
-
-
+/*
+📦 JavaScript Data Types
+├── 1️⃣ Primitive
+│   ├─ String
+│   ├─ Number
+│   ├─ Boolean
+│   ├─ Undefined
+│   ├─ Null
+│   ├─ Symbol
+│   └─ BigInt
+|
+└── 2️⃣ Non-Primitive (Reference)
+    ├─ Object
+    ├─ Array
+    ├─ Function
+    ├─ Date
+    └─ Other built-ins (Map, Set, etc.)
+*/
 
 //********************************** */
 
