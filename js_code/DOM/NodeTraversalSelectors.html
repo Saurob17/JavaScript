@@ -1,0 +1,116 @@
+<!-- 🌿 Full Note: Node & Traversal Selectors (DOM Tree Navigation) -->
+<!-- =================================================
+Node & Traversal Selectors:
+- DOM tree এ element select করার পর, parent, child, sibling element এ যেতে
+  Node & Traversal selectors ব্যবহার হয়।
+- সাধারণত element.parentNode, element.children, element.firstElementChild ইত্যাদি ব্যবহার করা হয়।
+================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Node & Traversal Selectors</title>
+  </head>
+  <body>
+    <!-- =====================================================
+    🔹 Example DOM Tree
+    ====================================================== -->
+    <div id="container">
+      <h1>Main Title</h1>
+      <div class="section">
+        <p>Paragraph 1</p>
+        <p>Paragraph 2</p>
+        <p>Paragraph 3</p>
+      </div>
+      <footer>Footer Content</footer>
+    </div>
+
+    <button onclick="traverseDOM()">Traverse DOM</button>
+
+    <script>
+      /* =====================================================
+      🧠 1️⃣ parentNode / parentElement
+      -------------------------------------------------------
+      ✅ কাজ:
+         - element এর parent node বা parent element select করে
+      ====================================================== */
+      function traverseDOM() {
+        let container = document.getElementById("container");
+        let footer = container.querySelector("footer");
+
+        console.log("Footer parentNode:", footer.parentNode);   // <div id="container">
+        console.log("Footer parentElement:", footer.parentElement); // <div id="container">
+
+        /* =====================================================
+        🧠 2️⃣ children
+        -------------------------------------------------------
+        ✅ কাজ:
+           - element এর সরাসরি child elements return করে
+        ====================================================== */
+        let section = container.querySelector(".section");
+        console.log("Children of section:", section.children); // HTMLCollection of 3 <p> tags
+
+        /* =====================================================
+        🧠 3️⃣ firstElementChild / lastElementChild
+        -------------------------------------------------------
+        ✅ কাজ:
+           - element এর প্রথম / শেষ child element select করে
+        ====================================================== */
+        console.log("First child of section:", section.firstElementChild); // <p>Paragraph 1</p>
+        console.log("Last child of section:", section.lastElementChild);   // <p>Paragraph 3</p>
+
+        /* =====================================================
+        🧠 4️⃣ nextElementSibling / previousElementSibling
+        -------------------------------------------------------
+        ✅ কাজ:
+           - element এর পরের / আগের sibling element select করে
+        ====================================================== */
+        let firstPara = section.firstElementChild;
+        console.log("Next sibling of first para:", firstPara.nextElementSibling); // <p>Paragraph 2</p>
+        let lastPara = section.lastElementChild;
+        console.log("Previous sibling of last para:", lastPara.previousElementSibling); // <p>Paragraph 2</p>
+
+        /* =====================================================
+        🧠 5️⃣ closest("selector")
+        -------------------------------------------------------
+        ✅ কাজ:
+           - element থেকে শুরু করে parent hierarchy তে nearest matching selector find করে
+        ====================================================== */
+        let para = section.querySelector("p");
+        console.log("Closest div to first paragraph:", para.closest("div")); // <div class="section">
+        console.log("Closest #container to first paragraph:", para.closest("#container")); // <div id="container">
+      }
+
+      // ⚠️ মনে রাখবে:
+      // 1. parentNode & parentElement প্রায় একই, কিন্তু parentNode text, comment node ও return করতে পারে।
+      // 2. children → শুধুমাত্র element nodes return করে, text node নয়।
+      // 3. nextElementSibling / previousElementSibling → শুধুমাত্র element nodes, null if no sibling.
+      // 4. closest(selector) → প্রথম matching ancestor element খুঁজে দেয়।
+    </script>
+
+    <!-- =====================================================
+    📊 Summary Table
+    -----------------------------------------------------
+    | Selector / Method                | Return Type      | Use Case |
+    |---------------------------------|----------------|----------|
+    | element.parentNode / parentElement | HTMLElement    | Parent select করা |
+    | element.children                 | HTMLCollection | All direct child elements |
+    | element.firstElementChild / lastElementChild | HTMLElement | First / Last child element |
+    | element.nextElementSibling / previousElementSibling | HTMLElement | Next / Previous sibling element |
+    | element.closest("selector")      | HTMLElement     | Nearest ancestor matching selector |
+    ====================================================== -->
+
+    <!-- ✅ Conclusion:
+    -----------------------------------------------
+    🟩 Node & Traversal selectors ব্যবহার করে DOM tree move করা যায়।
+🟩 parentNode / parentElement → parent access
+🟩 children → direct child elements
+🟩 firstElementChild / lastElementChild → first / last child
+🟩 nextElementSibling / previousElementSibling → siblings
+🟩 closest("selector") → nearest ancestor matching selector
+⚠️ মনে রাখবে, siblings এবং children শুধুমাত্র element nodes return করে, text node নয়।
+    ====================================================== -->
+  </body>
+</html>

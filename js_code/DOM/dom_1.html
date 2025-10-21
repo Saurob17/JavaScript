@@ -1,0 +1,180 @@
+<!-- 🌿 Full Note: Basic DOM Selectors & Manipulation -->
+<!-- =================================================
+DOM (Document Object Model) হলো HTML ডকুমেন্টের tree structure।
+JavaScript দিয়ে DOM এর element select ও manipulate (পরিবর্তন) করা যায়।
+
+এই উদাহরণে ৪টা Basic DOM Selector দেখানো হলো:
+1️⃣ document.getElementById("id")
+2️⃣ document.getElementsByClassName("class")
+3️⃣ document.getElementsByTagName("tag")
+4️⃣ document.getElementsByName("name")
+================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DOM Learning</title>
+  </head>
+  <body>
+    <!-- =====================================================
+    🔹 1️⃣ getElementById example
+    -----------------------------------------------------
+    👉 কাজ:
+       - একটি নির্দিষ্ট element কে তার unique "id" দিয়ে select করা হয়।
+       - Return: HTMLElement (single element)
+       - Multiple element পায়? ❌ না
+       - Live/Static: Static (auto update হয় না)
+    ====================================================== -->
+    <div>
+      <h1 id="heading">Hello World!</h1>
+      <h2 id="heading2">Heading 2</h2>
+    </div>
+
+    <!-- =====================================================
+    🔹 2️⃣ getElementsByClassName example
+    -----------------------------------------------------
+    👉 কাজ:
+       - একই class name থাকা সব element select করে।
+       - Return: HTMLCollection (array-like object)
+       - Multiple element পায়? ✅ হ্যাঁ
+       - Live/Static: Live (HTML পরিবর্তন হলে auto update হয়)
+    ====================================================== -->
+    <div>
+      <h1 class="byClass">it change by class 1</h1>
+      <h2 class="byClass">it change by class 2</h2>
+      <h2 class="byClass">it change by class 3</h2>
+    </div>
+
+    <!-- =====================================================
+    🔹 3️⃣ getElementsByTagName example
+    -----------------------------------------------------
+    👉 কাজ:
+       - নির্দিষ্ট HTML tag (যেমন <p>, <h1>) অনুযায়ী element select করে।
+       - Return: HTMLCollection
+       - Multiple element পায়? ✅ হ্যাঁ
+       - Live/Static: Live
+    ====================================================== -->
+    <div>
+      <h1>getElementsByTagName example</h1>
+      <p>This is a paragraph 1.</p>
+      <p>This is a paragraph 2.</p>
+      <p>This is a paragraph 3.</p>
+    </div>
+
+    <!-- =====================================================
+    🔹 4️⃣ getElementsByName example
+    -----------------------------------------------------
+    👉 কাজ:
+       - element গুলোকে তাদের "name" attribute দিয়ে select করা হয়।
+       - Return: NodeList
+       - Multiple element পায়? ✅ হ্যাঁ
+       - Live/Static: Static
+       - form input field / radio / checkbox এর জন্য সাধারণত ব্যবহৃত হয়।
+    ====================================================== -->
+    <div>
+      <h1>getElementsByName example</h1>
+      <input type="text" name="username" value="user1" /> User 1<br />
+      <input type="text" name="username" value="user2" /> User 2<br />
+      <input type="text" name="username" value="user3" /> User 3<br />
+      <input type="text" name="department" value="dept1" /> Dept 1<br />
+    </div>
+
+    <button onclick="changeElements()">Click to Change Elements</button>
+
+    <script>
+      /* =====================================================
+      🧠 1️⃣ document.getElementById("id")
+      -------------------------------------------------------
+      ✅ Selects a single element using its ID.
+      ====================================================== */
+      document.getElementById("heading").innerHTML = "Hello World! from JS";
+      document.getElementById("heading2").style.color = "red";
+      document.getElementById("heading2").style.backgroundColor = "yellow";
+      document.getElementById("heading2").classList.add("bg-black");
+      // 🟢 ব্যাখ্যা:
+      // id="heading2" এর element টা নিয়ে তার style ও class পরিবর্তন করেছি।
+
+      /* =====================================================
+      🧠 2️⃣ document.getElementsByClassName("class")
+      -------------------------------------------------------
+      ✅ Selects all elements having the same class name.
+      ✅ Returns an HTMLCollection (array-like list)
+      ====================================================== */
+      let elements = document.getElementsByClassName("byClass");
+      elements[0].innerHTML = "Changed by JS using getElementsByClassName";
+      alert("Total elements with class 'byClass': " + elements.length);
+
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].style.color = "blue";
+        elements[i].style.backgroundColor = "lightgray";
+      }
+      // 🟢 ব্যাখ্যা:
+      // সব byClass element loop করে color ও background পরিবর্তন করা হয়েছে।
+
+      /* =====================================================
+      🧠 3️⃣ document.getElementsByTagName("tag")
+      -------------------------------------------------------
+      ✅ Selects all elements with the given tag name (e.g., p, div).
+      ✅ Returns HTMLCollection
+      ====================================================== */
+      let paragraphs = document.getElementsByTagName("p");
+      paragraphs[0].innerHTML = "Changed by JS using getElementsByTagName";
+      alert("Total paragraph elements: " + paragraphs.length);
+
+      for (let i = 0; i < paragraphs.length; i++) {
+        paragraphs[i].style.fontWeight = "bold";
+        paragraphs[i].style.fontSize = "18px";
+      }
+      // 🟢 ব্যাখ্যা:
+      // getElementsByTagName("p") সব <p> tag এর element দেয়।
+      // তারপর loop চালিয়ে bold ও font size বাড়ানো হয়েছে।
+
+      /* =====================================================
+      🧠 4️⃣ document.getElementsByName("name")
+      -------------------------------------------------------
+      ✅ Selects elements by their 'name' attribute.
+      ✅ Returns NodeList (Static)
+      ====================================================== */
+      function changeElements() {
+        let userInputs = document.getElementsByName("username");
+        userInputs[0].value = "ChangedUser1 by JS using getElementsByName";
+        alert("Total input elements with name 'username': " + userInputs.length);
+
+        for (let i = 0; i < userInputs.length; i++) {
+          userInputs[i].style.border = "2px solid green";
+          userInputs[i].style.padding = "5px";
+          userInputs[i].style.backgroundColor = "lightyellow";
+        }
+
+        console.log(userInputs);
+        console.log("DOM manipulation completed.");
+      }
+      // 🟢 ব্যাখ্যা:
+      // name="username" input গুলোর style ও value পরিবর্তন করা হয়েছে।
+    </script>
+
+    <!-- =====================================================
+    📊 Summary Table
+    -----------------------------------------------------
+    | Selector Name               | Return Type       | Multiple | Live/Static | Use Case |
+    |------------------------------|------------------|-----------|--------------|-----------|
+    | getElementById("id")         | HTMLElement      | ❌ No     | ❌ Static    | Unique element |
+    | getElementsByClassName("class") | HTMLCollection | ✅ Yes   | ✅ Live      | Same class elements |
+    | getElementsByTagName("tag")  | HTMLCollection   | ✅ Yes   | ✅ Live      | Tag-based selection |
+    | getElementsByName("name")    | NodeList         | ✅ Yes   | ❌ Static    | Form fields |
+    ====================================================== -->
+
+    <!-- ✅ Conclusion:
+    -----------------------------------------------
+    🟩 getElementById → একটিমাত্র element select করতে।
+    🟩 getElementsByClassName → একই class থাকা একাধিক element।
+    🟩 getElementsByTagName → নির্দিষ্ট tag এর সব element।
+    🟩 getElementsByName → input বা form field select করতে।
+
+    🧠 HTMLCollection = Live (auto update)
+    🧠 NodeList = Static (update হয় না)
+    ====================================================== -->
+  </body>
+</html>

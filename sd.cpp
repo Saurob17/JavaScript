@@ -25,7 +25,7 @@ int main() {
             long long x1,x=a&-a,x2;
             for (long long x1 = 0; x1 <= 100; x1++) {
              
-            x=
+           
 
             }
             if (!f) {

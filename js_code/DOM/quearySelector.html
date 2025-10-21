@@ -1,0 +1,116 @@
+<!-- 🌿 Full Note: Modern DOM Selectors & Manipulation -->
+<!-- =================================================
+Modern DOM Selectors: querySelector & querySelectorAll
+------------------------------------------------------
+⚡ Modern JavaScript এ DOM element select করার সবচেয়ে flexible method হলো:
+1️⃣ document.querySelector("CSS selector")
+2️⃣ document.querySelectorAll("CSS selector")
+
+✅ CSS-style selector (যেমন #id, .class, tag, [attr=value]) সাপোর্ট করে।
+⚠️ মনে রাখবে:
+   - querySelector() → শুধু **প্রথম matching element** select করে।
+   - querySelectorAll() → সব matching element select করে (NodeList রিটার্ন করে)।
+================================================= -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Modern DOM Selectors</title>
+  </head>
+  <body>
+    <!-- =====================================================
+    🔹 Example Elements
+    ====================================================== -->
+    <div>
+      <h1 id="mainTitle">Welcome to JS</h1>
+      <p class="msg">This is message 1.</p>
+      <p class="msg">This is message 2.</p>
+    </div>
+
+    <div class="user-list">
+      <h2>User List</h2>
+      <input type="text" name="username" value="User1" />
+      <input type="text" name="username" value="User2" />
+      <input type="text" name="username" value="User3" />
+    </div>
+
+    <button onclick="applySelectors()">Apply Modern Selectors</button>
+
+    <script>
+      /* =====================================================
+      🧠 1️⃣ querySelector()
+      -------------------------------------------------------
+      ✅ কাজ:
+         - প্রথম matching element select করে
+         - Return: Single HTMLElement
+         - Multiple element পায়? ❌ না
+         - Live/Static: Static
+      ====================================================== */
+      document.querySelector("#mainTitle").style.color = "red";          // By ID
+      document.querySelector(".msg").style.fontWeight = "bold";          // By class
+      document.querySelector("p").style.backgroundColor = "lightblue";   // By tag
+      // ⚠️ মনে রাখবে: querySelector() শুধু প্রথম matching element select করে।
+
+      /* =====================================================
+      🧠 2️⃣ querySelectorAll()
+      -------------------------------------------------------
+      ✅ কাজ:
+         - সব matching element select করে
+         - Return: NodeList
+         - Multiple element পায়? ✅ হ্যাঁ
+         - Live/Static: Static
+      ====================================================== */
+      function applySelectors() {
+        // Class selector
+        let allMsgs = document.querySelectorAll(".msg");
+        alert("Total .msg elements found: " + allMsgs.length);
+
+        allMsgs.forEach((m) => {
+          m.style.border = "2px solid green";
+          m.style.padding = "8px";
+          m.style.backgroundColor = "lightyellow";
+        });
+
+        // Attribute selector
+        let userInputs = document.querySelectorAll("input[name='username']");
+        alert("Total username inputs: " + userInputs.length);
+
+        userInputs.forEach((input, index) => {
+          input.value = "ChangedUser" + (index + 1);
+          input.style.border = "2px solid blue";
+          input.style.borderRadius = "5px";
+          input.style.margin = "4px 0";
+        });
+
+        console.log(allMsgs);
+        console.log(userInputs);
+        console.log("Modern DOM manipulation completed.");
+      }
+      // ⚠️ মনে রাখবে: querySelectorAll() NodeList রিটার্ন করে, HTMLCollection নয়।
+    </script>
+
+    <!-- =====================================================
+    📊 Summary Table
+    -----------------------------------------------------
+    | Selector Name                   | Return Type | Multiple | Live/Static | CSS Support | Use Case |
+    |---------------------------------|-------------|----------|-------------|-------------|-----------|
+    | querySelector("CSS selector")    | Element     | ❌ No    | ❌ Static   | ✅ Yes      | First matching element |
+    | querySelectorAll("CSS selector") | NodeList    | ✅ Yes   | ❌ Static   | ✅ Yes      | All matching elements |
+    ====================================================== -->
+
+    <!-- ✅ Conclusion:
+    -----------------------------------------------
+    🟩 querySelector → প্রথম element select করে (CSS style selector দিয়ে)
+    🟩 querySelectorAll → সব matching element select করে (NodeList দেয়)
+    🟩 ⚠️ QuerySelector শুধুমাত্র প্রথম matching element দেয়, QuerySelectorAll সবগুলো element দেয়
+    🟩 CSS Selector উদাহরণ:
+        #id               → id select
+        .class            → class select
+        tag               → tag select
+        [attr=value]      → attribute select
+        div > p.msg       → nested CSS selection
+    ====================================================== -->
+  </body>
+</html>
