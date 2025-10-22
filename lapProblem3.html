@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DHTML Event Example</title>
+  <style>
+    body {
+      background-color: #628b92;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 100px;
+    }
+    #messageBox {
+      display: inline-block;
+      padding: 20px 40px;
+      background-color: #333;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 20px;
+      transition: background-color 0.3s ease;
+    }
+    #messageBox:hover {
+      background-color: #555;
+    }
+    #output {
+      margin-top: 20px;
+      color: #00ffcc;
+      font-size: 22px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body onkeypress="showMessage('Key Pressed!')">
+
+  <div id="messageBox"
+       onmouseover="eventAlart('Mouse on!')"
+       onclick="eventAlart('Clicked!')">
+    Hover, Click, or Press any key
+  </div>
+
+  <p id="output"></p>
+
+  <script>
+function eventAlart(eventType){
+        alert("I am a CSE student "+eventType);
+}
+    // function showMessage(eventType) {
+    //   document.getElementById('output').innerHTML = "I am a CSE student (" + eventType + ")";
+    // }
+
+    
+  </script>
+
+</body>
+</html>

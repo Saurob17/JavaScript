@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        background-color: azure;
+      }
+      .click-box {
+        width: 200px;
+        height: 100px;
+        background-color: coral;
+        text-align: center;
+        line-height: 100px;
+        margin: 50px auto;
+        cursor: pointer;
+      }
+      .MousOn {
+        width: 200px;
+        height: 100px;
+        background-color: lightgreen;
+        text-align: center;
+        line-height: 100px;
+        margin: 50px auto;
+      }
+        .onkey {
+            width: 200px;
+            height: 100px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 100px;
+            margin: 50px auto;
+        }
+    </style>
+  </head>
+  <body>
+    <div
+      class="click-box"
+      id="clickBox"
+      onclick="alert('I am a CSE student Clicked!')"
+    >
+      ON Click
+    </div>
+    <div class="MousOn" onmousemove="alert('I am a CSE student (on mouse)')">
+      ON Mouse
+    </div>
+  <div class="onkey" 
+     tabindex="0" 
+     onkeypress="alert('I am a CSE student. (key press)')">Key Press</div>
+  </body>
+
+  <script></script>
+</html>
