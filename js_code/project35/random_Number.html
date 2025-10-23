@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Number Guess</title>
+
+    <style>
+        body{
+            background-color: rgba(0, 0, 0, 0.699);
+        }
+        h1{
+            text-align: center;
+            color: lavender;
+        }
+        h2{
+            text-align: center;
+            color: white;
+        }
+        h3{
+            text-align: center;
+            color: orange;
+        }
+        div{
+            text-align: center;
+            color: white;
+        }
+        button{
+            display: block;
+            margin: auto;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: blue;
+            color: white;           
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: darkblue;
+        }
+
+        .form{
+            text-align: center;
+            margin-bottom: 20px;
+            height: 30px;
+        }
+        .guessField{
+            width: 200px;
+            height: 25px;
+            font-size: 16px;
+            border: 2px solid black;
+            border-radius: 5px;
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Number guessing Game </h1>
+
+    <h2>Try and guess a rendom number 1 and 100. <br>
+    You have 10 attempts to guess the right number.</h2>
+    
+    <h1>Guess a number</h1>
+
+    <div class="form">
+        <input type="number" id="guessField" class="guessField" min="1" max="100"  required>
+
+    </div>
+
+    <button>submit guess</button>
+    <h3>Privious Guesses</h3>
+
+    <div><div>Guesses Remaining: </div>
+
+</body>
+
+<script>
+    let randomNumber = Math.floor(Math.random() * 100) + 1;
+    console.log(randomNumber);
+    let guesses = 0;
+    const maxGuesses = 10;  
+    const button = document.querySelector('button');
+    const guessField = document.getElementById('guessField');
+    const previousGuessesDiv = document.querySelector('div');
+    const guessesRemainingDiv = previousGuessesDiv.nextElementSibling;
+    let previousGuesses = [];
+    button.addEventListener('click', function() {
+        const userGuess = Number(guessField.value);
+        if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
+            alert('Please enter a valid number between 1 and 100.');
+            return;
+        }
+        guesses++;
+        previousGuesses.push(userGuess);
+        previousGuessesDiv.textContent = 'Previous Guesses: ' + previousGuesses.join(', ');
+        guessesRemainingDiv.textContent = 'Guesses Remaining: ' + (maxGuesses - guesses);
+        
+        if (userGuess === randomNumber) {
+            alert('Congratulations! You guessed the correct number!');
+            resetGame();
+        } else if (guesses >= maxGuesses) {
+            alert('Game Over! The correct number was ' + randomNumber);
+            resetGame();
+        } else if (userGuess < randomNumber) {
+            alert('Too low! Try again.');
+        } else if (userGuess > randomNumber) {
+            alert('Too high! Try again.');
+        }
+        guessField.value = '';
+        guessField.focus();
+    });
+    function resetGame() {
+        randomNumber = Math.floor(Math.random() * 100) + 1;
+        console.log(randomNumber);
+        guesses = 0;
+        previousGuesses = [];
+        previousGuessesDiv.textContent = 'Previous Guesses: ';
+        guessesRemainingDiv.textContent = 'Guesses Remaining: ' + maxGuesses;
+        guessField.value = '';
+        guessField.focus();
+    }
+
+    
+</script>
+</html>

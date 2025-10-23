@@ -2,43 +2,32 @@
 using namespace std;
 
 int main() {
- 
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
     int t;
     cin >> t;
     while (t--) {
-        long long a, b;
-        cin >> a >> b;
+        int N;
+        string S;
+        cin >> N >> S;
 
-        vector<long long> o;
-
-        if (a == b) {
-            cout << 0 << endl; 
+        int o = 0;
+        for (char c : S) if (c == '1') ++o;
+        if (o == 0) {
+            cout << "YES\n";
             continue;
         }
 
-        long long diff = a ^ b;
-
-        if (diff <= a) {
-            o.push_back(diff);
-        } else {
-            bool f = false;
-            long long x1,x=a&-a,x2;
-            for (long long x1 = 0; x1 <= 100; x1++) {
-             
-           
-
-            }
-            if (!f) {
-                cout << -1 <<endl;
-                continue;
-            }
+        int m = 0, cur = 0;
+        for (char c : S) {
+            if (c == '1') ++cur;
+            else { m = max(m, cur); cur = 0; }
         }
-        cout << o.size() << endl;
-        for (size_t i = 0; i < o.size(); i++) {
-            cout << o[i] << " ";
-        }
-        cout<<endl;
+        m = max(m, cur);
+
+        if ((m == 2 || m == 3) && o == m) cout << "NO"<<endl;
+        else cout << "YES"<<endl;
     }
-
     return 0;
-}//https://codeforces.com/blog/entry/132272
+}
