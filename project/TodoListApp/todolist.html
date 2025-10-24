@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To DO List</title>
+    <link rel="stylesheet" href="toDoList.css" />
+   
+  </head>
+  <body>
+    <h1>My To Do List</h1>
+
+    <div class="todo">
+      <h2>To-Do List</h2>
+      <span class="crop-bottom-inline">
+        <img
+          id="icon1"
+          src="https://cdn.vectorstock.com/i/1000v/72/07/to-do-list-icon-with-check-mark-notepad-checklist-vector-45067207.jpg"
+          alt="To-Do List Icon"
+        />
+      </span>
+
+      <div class="work">
+        <br /><br />
+        <div class="main1">
+          <form action="">
+            <span class="input-span">
+              <input
+                class="input-box"
+                type="text"
+                placeholder="Add a new task..."
+                required
+              />
+            </span>
+            <button class="add-ele">Add Task</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </body>
+<script>
+  const addButton = document.querySelector(".add-ele");
+  const inputBox = document.querySelector(".input-box");
+
+
+  const taskContainer = document.createElement("div");
+  taskContainer.style.textAlign = "center";
+  taskContainer.style.marginTop = "20px";
+  document.querySelector(".work").appendChild(taskContainer);
+
+ 
+  let todoList = JSON.parse(localStorage.getItem("todoList")) || [];
+  renderTasks();
+
+
+  addButton.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    const task = inputBox.value.trim();
+    if (task !== "") {
+      todoList.push(task);
+      localStorage.setItem("todoList", JSON.stringify(todoList));
+      inputBox.value = "";
+      renderTasks();
+    } else {
+      alert("Please enter a task.");
+    }
+  });
+
+
+  function renderTasks() {
+    taskContainer.innerHTML = "";
+
+    todoList.forEach((task, index) => {
+      const taskDiv = document.createElement("div");
+      taskDiv.style.display = "flex";
+      taskDiv.style.justifyContent = "center";
+      taskDiv.style.alignItems = "center";
+      taskDiv.style.margin = "8px 0";
+
+      const taskText = document.createElement("span");
+      taskText.textContent = task;
+      taskText.style.marginRight = "10px";
+      taskText.style.fontSize = "18px";
+      taskText.style.color = "#333";
+
+      const delBtn = document.createElement("button");
+      delBtn.textContent = "❌";
+      delBtn.style.background = "";
+      delBtn.style.color = "white";
+      delBtn.style.border = "none";
+      delBtn.style.borderRadius = "6px";
+      delBtn.style.cursor = "pointer";
+      delBtn.style.padding = "4px 8px";
+
+      delBtn.addEventListener("click", function () {
+        todoList.splice(index, 1);
+        localStorage.setItem("todoList", JSON.stringify(todoList));
+        renderTasks();
+      });
+
+      taskDiv.appendChild(taskText);
+      taskDiv.appendChild(delBtn);
+      taskContainer.appendChild(taskDiv);
+    });
+  }
+</script>
+
+</html>
