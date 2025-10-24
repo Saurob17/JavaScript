@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body style="background-color: azure;">
+  <h1>Start should change the Background color every second.</h1>
+
+  <button id="start">Start</button>
+  <button id="stop">Stop</button>
+
+  <script>
+    const randomColor = function() {
+        const hex = '0123456789ABCDEF';
+        let color = '#';
+        for (let i = 0; i < 6; i++) {
+            const randomIndex = Math.floor(Math.random() * 16);
+            color += hex[randomIndex];
+        }
+        return color;
+    }
+
+    let intervalId;  
+
+    const startChangeColor = function() {
+
+        if (!intervalId) {
+            intervalId = setInterval(function() {
+                document.body.style.backgroundColor = randomColor();
+                console.log('Color changed');
+            }, 1000);
+        }
+    }
+
+    const stopChangeColor = function() {
+        clearInterval(intervalId);
+        intervalId = null;  
+        console.log('Color change stopped');
+    }
+
+    document.querySelector('#start').addEventListener('click', startChangeColor);
+    document.querySelector('#stop').addEventListener('click', stopChangeColor);
+  </script>
+</body>
+</html>

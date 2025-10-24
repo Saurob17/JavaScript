@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body style="background-color: azure">
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aut voluptatem
+    enim, tempora iste dolore voluptates. Sapiente voluptatum, exercitationem
+    numquam cupiditate provident magni, odit, pariatur quas saepe temporibus
+    ipsam corporis rem!
+  </body>
+
+  <script>
+    const requstUrl = "https://api.github.com/users/hiteshchoudhary";
+    const xhr = new XMLHttpRequest();
+
+    xhr.open("GET", requstUrl);
+
+    xhr.onreadystatechange= function () {
+      console.log(xhr.readyState);
+
+      if(xhr.readyState===4){
+        console.log("Status code ",xhr.readyState);
+        if(xhr.status>=200 && xhr.status<300){
+            const data=this.responseText;
+           console.log(data);
+
+           console.log(data.followers)
+           
+        }else{
+            console.log("Error Occured");
+        }
+      }
+    };
+    xhr.send();
+  </script>
+</html>

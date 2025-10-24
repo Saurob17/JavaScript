@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body{
+            background-color: azure;
+        }
+        div{
+            width: 300px;
+            height: 100px;
+            background-color: lightblue;
+            text-align: center;
+            line-height: 100px;
+            margin: 50px auto;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Enter a key.</h1>
+
+    <div id="keyDiv" >Press any key
+
+
+    </div>
+    
+</body>
+<script>
+const insert=document.querySelector('#keyDiv');
+
+window.addEventListener("keypress",function(event){
+    insert.textContent=`You pressed <h3>${event.key}</h3> key`;
+    document.body.style.backgroundColor="lightgreen";
+   insert.style.fontWeight="bold";
+})
+</script>
+</html>
