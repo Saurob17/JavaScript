@@ -16,9 +16,9 @@
       body {
         background: #222;
         display: flex;
-        align-items: center;     /* center vertically */
+        align-items: center; /* center vertically */
         justify-content: center; /* center horizontally */
-        min-height: 100vh;       /* full viewport height */
+        min-height: 100vh; /* full viewport height */
       }
       .card {
         width: 90%;
@@ -28,7 +28,7 @@
         border-radius: 20px;
         padding: 40px 35px;
         text-align: center;
-        margin: 16px;            /* small outer spacing */
+        margin: 16px; /* small outer spacing */
       }
       .search {
         display: flex;
@@ -64,6 +64,48 @@
         filter: invert(39%) sepia(98%) saturate(7493%) hue-rotate(169deg)
           brightness(102%) contrast(101%);
       }
+
+      .weather-icon {
+        width: 170px;
+        margin-top: 30px;
+      }
+      .weather h1 {
+        font-size: 80px;
+        font-weight: 500;
+      }
+
+      .weather h2 {
+        font-size: 80px;
+        font-weight: 400;
+        margin-top: -10px;
+      }
+
+      .details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        margin-top: 50px;
+      }
+      .col {
+        display: flex;
+        align-items: center;
+        text-align: left;
+      }
+
+      .col img {
+        width: 40px;
+        margin-right: 10px;
+      }
+      .humidity,
+      .wind {
+        font-size: 28px;
+        margin-top: -6px;
+      }
+      .weather {
+        display: none;
+      }
+
     </style>
   </head>
   <body>
@@ -74,7 +116,80 @@
           <img src="images/search.png" alt="image/search.png" />
         </button>
       </div>
+      <div class="weather">
+        <img src="images/rain.png" class="weather-icon" alt="" />
+        <h1 class="temp">22°C</h1>
+        <h2 class="city">New Yerk</h2>
+
+        <div class="details">
+          <div class="col">
+            <img src="images/humidity.png" alt="" />
+            <div>
+              <p class="humidity">50%</p>
+              <p>Humidity</p>
+            </div>
+          </div>
+          <div class="col">
+            <img src="images/wind.png" alt="" />
+            <div>
+              <p class="wind">15 km/h</p>
+              <p>wind Speed</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   </body>
-  <script src="weatherApp.js"></script>
+  <script>
+  const apiKey = "3b56c6af6accc62e91991d18992a9ffa";
+  const apiUrl =
+    "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+
+  const searchBox = document.querySelector(".search input");
+  const searchBtn = document.querySelector(".search button");
+  const weatherIcon = document.querySelector(".weather-icon");
+
+  async function checkWeather(city) {
+    const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+    
+
+    if (!response.ok) {
+      alert("City not found! Please enter a valid city name.");
+      return;
+    }
+
+    const data = await response.json();
+    console.log(data);
+
+    document.querySelector(".city").innerHTML = data.name;
+    document.querySelector(".temp").innerHTML =
+      Math.round(data.main.temp) + "°C";
+    document.querySelector(".humidity").innerHTML =
+      data.main.humidity + "%";
+    document.querySelector(".wind").innerHTML =
+      data.wind.speed + " km/h";
+
+    // 🌤 Change image dynamically
+    if (data.weather[0].main === "Clouds") {
+      weatherIcon.src = "images/clouds.png";
+    } else if (data.weather[0].main === "Clear") {
+      weatherIcon.src = "images/clear.png";
+    } else if (data.weather[0].main === "Rain") {
+      weatherIcon.src = "images/rain.png";
+    } else if (data.weather[0].main === "Drizzle") {
+      weatherIcon.src = "images/drizzle.png";
+    } else if (data.weather[0].main === "Mist") {
+      weatherIcon.src = "images/mist.png";
+    }
+
+    document.querySelector(".weather").style.display = "block";
+
+  }
+
+  // 🔍 Button click event
+  searchBtn.addEventListener("click", () => {
+    checkWeather(searchBox.value);
+  });
+</script>
+
 </html>

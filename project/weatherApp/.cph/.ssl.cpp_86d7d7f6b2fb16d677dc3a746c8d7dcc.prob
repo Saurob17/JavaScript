@@ -1,0 +1,1 @@
+{"name":"Local: ssl","url":"/home/kali/JavaScript/project/weatherApp/ssl.cpp","tests":[{"id":1761396453597,"input":"5\n3 2 5 2 2\n","output":""},{"id":1761396831266,"input":"3\n1 1 1\n","output":""}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"/home/kali/JavaScript/project/weatherApp/ssl.cpp","group":"local","local":true}
